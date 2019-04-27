@@ -15,8 +15,8 @@
 * return value
 ```json
 {
-	clock: 1,
-	status: "idle"
+	"clock": 1,
+	"status": "idle"
 }
 ```
 * status type
@@ -31,12 +31,12 @@
 block value
 ```json
 {
-	id: 4,
-	hash: "5234ab...",
-	timestamp: "%Y/%m/%d %H:%M:%S",
-	transactions: [{"sender": "aki", "recipient": "so", "value": 3}],
-	previoud_block_hash: "d628e...",
-	nonde: 46
+	"id": 4,
+	"hash": "5234ab...",
+	"timestamp": "%Y/%m/%d %H:%M:%S",
+	"transactions": [{"sender": "aki", "recipient": "so", "value": 3}],
+	"previoud_block_hash": "d628e...",
+	"nonde": 46
 }
 ```
 
@@ -54,10 +54,10 @@ block value
 * return value
 ```json
 {
-	length: 2,
-	blocks: [
-			{ id: 0, hash: ... },
-			{ id: 1, hash: ... }
+	"length": 2,
+	"blocks": [
+			{ "id: 0, "hash: ..." },
+			{ "id: 1, "hash: ..." }
 		]
 }
 ```
@@ -81,7 +81,7 @@ block value
 #### clock/$clock
 * changes clock to the given value
 * return HTTP 200, no body
- 
+
 ### HTTP POST
 #### transaction/addrequest
 * request to add a transaction to the tx pool
@@ -89,7 +89,7 @@ block value
 * return value
 ```json
 {
-	result: "success"	// success | fail
+	"result": "success"	// success | fail
 }
 ```
 
