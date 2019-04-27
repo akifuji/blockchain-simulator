@@ -56,8 +56,8 @@ block value
 {
 	"length": 2,
 	"blocks": [
-			{ "id: 0, "hash: ..." },
-			{ "id: 1, "hash: ..." }
+			{ "id": 0, "hash: ..." },
+			{ "id": 1, "hash: ..." }
 		]
 }
 ```
