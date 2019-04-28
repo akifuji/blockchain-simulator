@@ -4,7 +4,7 @@ import json
 
 from block import Block
 
-GENESIS_BLOCK = Block({"sender": None, "recipient": "node1", "value": 10}, None)
+GENESIS_BLOCK = Block({"sender": None, "recipient": "aki", "value": 10}, None)
 
 class BlockchainManager:
     def __init__(self):
@@ -22,3 +22,6 @@ class BlockchainManager:
 
     def get_hash(self):
         return self.sha256sha256(json.dumps(self.__dict__))
+
+    # def mine(self):
+

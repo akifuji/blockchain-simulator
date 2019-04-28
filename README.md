@@ -20,12 +20,12 @@
 }
 ```
 * status type
-	* idle
-	* mining
-	* broadcasting-block
-	* broadcasting-tx
-	* receiving-block
-	* receiving-tx
+	* 1: idle
+	* 2: mining
+	* 3: broadcasting-block
+	* 4: broadcasting-tx
+	* 5: receiving-block
+	* 6: receiving-tx
 
 #### block
 block value
@@ -62,7 +62,7 @@ block value
 }
 ```
 
-#### transactionpool/all
+#### txPool/all
 * return all transactions in the tx pool of the node in JSON
 * return value
 ```json
@@ -83,7 +83,7 @@ block value
 * return HTTP 200, no body
 
 ### HTTP POST
-#### transaction/addrequest
+#### tx/add
 * request to add a transaction to the tx pool
 * POST data: tx value
 * return value
@@ -112,6 +112,4 @@ block value
 
 ## node内でのmessage type
 * NEW_BLOCK
-* ACK_BLOCK
 * NEW_TX
-* ACK_TX
