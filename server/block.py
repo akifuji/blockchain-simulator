@@ -1,4 +1,5 @@
 from time import time
+import json
 
 
 class Block:
@@ -13,6 +14,9 @@ class Block:
             "transaction": self.transaction,
             "previous_block_hash": self.previous_block_hash,
         }
+
+    def to_json(self):
+        return json.dumps(self.to_dict()).encode('utf-8')
 
     def describe(self):
         print("hash: {}, timestamp: {}, data: {}, previous_block_hash: {}, nonce: {}"
