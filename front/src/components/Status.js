@@ -2,17 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { List, ListItemText } from '@material-ui/core';
 
-function States({ clock, nodes, port }) {
+function Status({ clock, nodes, port }) {
     return (
         <>
-            <h3>States:</h3>
+            <h3>Status:</h3>
             <p>clock: {clock}</p>
             <p>TBD: (node animation here)</p>
             <List>
                 {
-                    nodes.map(function (item, i) {
+                    nodes.map(function (node, i) {
                         return (
-                            <List key={i}><ListItemText primary={`${item}) localhost:${i + port}`} />
+                            <List key={i}><ListItemText primary={`${node.name}) localhost:${i + port}, status:${node.status}`} />
                             </List>
                         );
                     })
@@ -30,4 +30,4 @@ function mapStateToProps({ nodes, port, clock }) {
     };
 }
 
-export default connect(mapStateToProps, null)(States);
+export default connect(mapStateToProps, null)(Status);

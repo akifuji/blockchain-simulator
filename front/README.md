@@ -20,7 +20,7 @@ The following modules are used in the tests.
 6. play with GUI. After clock 3, you can see node state changes
 7. when finished, run ```stop_fake_nodes.sh```
  
-## Status
+## Development Status
 
 * Features
   * Config
@@ -29,9 +29,9 @@ The following modules are used in the tests.
     * Get Status: Not Implemented. Should talk to all nodes to get status.
     * Clock:
         * Reset/Increment/Decrement clock: Set in _state_, but not propagated
-  * States
-    * Node states (idle/broadcasting block...): Not implemented
-    * Node states (internal blockchain and transaction pool): Not implemented
+  * Status
+    * Node status (idle/broadcasting block...): Not implemented
+    * Node status (internal blockchain and transaction pool): Not implemented
     * Animation: Not Implemented
   * GUI
     * First version: done with simple material-ui

@@ -1,26 +1,44 @@
 import fetch from 'isomorphic-unfetch'
 
 const initialState = {
-    nodes: ['node1', 'node2', 'node3'],
+    nodes: [
+        { 'name': 'node1', 'status': 'idle' },
+        { 'name': 'node2', 'status': 'idle' },
+        { 'name': 'node3', 'status': 'idle' },
+    ],
     port: 10001,
     clock: 0,
 };
 
-function httpget(host, port, url) {
-    //let fullurl = `http://${host}:${port}${url}`;
-    let fullurl = `http://localhost:${port}${url}`;
-    console.info(`calling ${fullurl}`);
-
-    fetch(fullurl).then((response) => response.json())
-        .then((responseJson) => console.info(responseJson));
-}
-
 function updateClock(state, clk) {
     let p = 0;
     state.nodes.forEach(node => {
-        httpget(node, state.port + p, '/clock/' + clk);
+        let fullurl = `http://localhost:${state.port + p}/clock/${clk}`;
+        console.info(`calling ${fullurl}`);
+
+        fetch(fullurl).then((response) => response.json())
+            .then((responseJson) => console.info(responseJson));
         p++;
     });
+}
+
+function updateNodeStatus(state) {
+    let p = 0;
+
+    state.nodes.forEach(node => {
+        let fullurl = `http://localhost:${state.port + p}/status`;
+        console.info(`calling ${fullurl}`);
+        updateNodeStatusPerNode(state, fullurl, p);
+        p++;
+    });
+}
+
+function updateNodeStatusPerNode(state, fullurl, nodeIndex) {
+    fetch(fullurl).then(response => response.json())
+        .then((responseJson) => {
+            console.info('nodeIndex: %d, status: %s', nodeIndex, responseJson.status);
+            state.nodes[nodeIndex].status = responseJson.status;
+        });
 }
 
 export default function nodesReducer(state = initialState, action) {
@@ -29,7 +47,7 @@ export default function nodesReducer(state = initialState, action) {
         case 'NUM_NODES_CHANGED':
             let nodes = [];
             for (let i = 0; i < action.payload.numNodes; i++) {
-                nodes.push(`node${i + 1} `);
+                nodes.push({ 'name': `node${i + 1}`, 'status': 'idle' });
             }
 
             return {
@@ -41,8 +59,9 @@ export default function nodesReducer(state = initialState, action) {
                 ...state,
                 port: action.payload.port
             }
-        case 'GET_NODE_STATES':
-            // TODO: update node states
+        case 'GET_NODE_STATUS':
+            // TODO: update node status. This doesn't work because updateNodeStatus is async.
+            updateNodeStatus(state);
             return state;
         case 'SET_CLOCK':
             // send new clcok to all nodes

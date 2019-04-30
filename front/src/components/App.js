@@ -4,7 +4,7 @@ import { CssBaseline, AppBar, Toolbar, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import Config from './Config';
 import Actions from './Actions';
-import States from './States';
+import Status from './Status';
 
 function App({ nodes, port, clock }) {
   return (
@@ -20,7 +20,7 @@ function App({ nodes, port, clock }) {
 
       <Config />
       <Actions />
-      <States />
+      <Status />
     </div>
   );
 }

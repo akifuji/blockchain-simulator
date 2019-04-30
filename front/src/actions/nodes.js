@@ -12,8 +12,8 @@ export const portChanged = (port) => ({
     }
 })
 
-export const getNodeStates = () => ({
-    type: 'GET_NODE_STATE',
+export const getNodeStatus = () => ({
+    type: 'GET_NODE_STATUS',
     payload: {}
 })
 
