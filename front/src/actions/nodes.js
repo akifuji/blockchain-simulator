@@ -59,10 +59,13 @@ function setClock(state, dispatch, clk) {
     state.nodes.forEach(node => {
         let fullurl = `http://localhost:${state.port + p}/clock/${clk}`;
         console.info(`calling ${fullurl}`);
+        let getStatusUrl = `http://localhost:${state.port + p}/status`;
+        let getStatusNodeIndex = p;
 
         fetch(fullurl).then((response) => response.json())
             .then((responseJson) => {
                 console.info(responseJson);
+                updateNodeStatusPerNode(state, dispatch, getStatusUrl, getStatusNodeIndex);
                 dispatch(setClockSub(clk));
             });
         p++;

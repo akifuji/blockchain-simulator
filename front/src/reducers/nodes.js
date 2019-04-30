@@ -39,20 +39,10 @@ export default function nodesReducer(state = initialState, action) {
             }
         case 'SET_CLOCK':
             // send new clcok to all nodes
-            //updateClock(state, action.payload.clock);
             return {
                 ...state,
                 clock: action.payload.clock
             }
-        // case 'ADD_CLOCK':
-        //     let diff = action.payload.diff
-        //     let newClock = state.clock + diff
-        //     // send new clcok to all nodes
-        //     //updateClock(state, newClock);
-        //     return {
-        //         ...state,
-        //         clock: newClock
-        //     }
         default:
             return state;
     }
