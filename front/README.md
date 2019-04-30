@@ -6,6 +6,16 @@ The following node modules are added.
 * npm install --save redux
 * npm install --save react-redux
 
+## Quick Start
+
+1. cd to front/src directory
+1. (only once) run ```npm install``` to restore packages defined in package.json
+1. yarn start -> browser opens and goes to http://localhost:3000
+1. open another shell -> cd to src/tests/fake
+1. run ```start_fake_nodes.sh```
+1. play with GUI. After clock 3, you can see node state changes
+1. when finished, run ```stop_fake_nodes.sh```
+ 
 ## Status
 
 * Features

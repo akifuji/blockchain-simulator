@@ -1,0 +1,66 @@
+Namespace(port='10001', script='fake1.script')
+ * Serving Flask app "fake_node" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+Namespace(port='10002', script='fake2.script')
+ * Serving Flask app "fake_node" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+Namespace(port='10003', script='fake3.script')
+ * Serving Flask app "fake_node" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:10001/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Running on http://0.0.0.0:10002/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Running on http://0.0.0.0:10003/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger is active!
+ * Debugger PIN: 298-432-301
+ * Debugger PIN: 298-432-301
+ * Debugger is active!
+ * Debugger PIN: 298-432-301
+127.0.0.1 - - [30/Apr/2019 21:06:27] "[37mGET /status HTTP/1.1[0m" 200 -
+127.0.0.1 - - [30/Apr/2019 21:06:30] "[37mGET /status HTTP/1.1[0m" 200 -
+127.0.0.1 - - [30/Apr/2019 21:06:34] "[37mGET /status HTTP/1.1[0m" 200 -
+Namespace(port='10003', script='fake3.script')
+Namespace(port='10003', script='fake3.script')
+ * Serving Flask app "fake_node" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+Namespace(port='10002', script='fake2.script')
+ * Serving Flask app "fake_node" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:10003/ (Press CTRL+C to quit)
+ * Restarting with stat
+Namespace(port='10001', script='fake1.script')
+ * Serving Flask app "fake_node" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:10002/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Running on http://0.0.0.0:10001/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger is active!
+ * Debugger PIN: 298-432-301
+ * Debugger PIN: 298-432-301
+ * Debugger is active!
+ * Debugger PIN: 298-432-301
+127.0.0.1 - - [30/Apr/2019 21:11:23] "[37mGET /status HTTP/1.1[0m" 200 -
+127.0.0.1 - - [30/Apr/2019 21:11:23] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
