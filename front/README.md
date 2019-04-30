@@ -5,9 +5,11 @@ The following node modules are added.
 * npm install --save @material-ui/core
 * npm install --save redux
 * npm install --save react-redux
+* npm install --save redux-thunk
 * npm install --save isomorphic-unfetch
-  
+
 The following modules are used in the tests.
+
 * pip install flask flask_cors
   
 ## Quick Start
@@ -26,18 +28,19 @@ The following modules are used in the tests.
   * Config
     * Node count and port: done
   * Actions
-    * Get Status: Not Implemented. Should talk to all nodes to get status.
+    * Get Status: done
     * Clock:
-        * Reset/Increment/Decrement clock: Set in _state_, but not propagated
+      * Reset/Increment/Decrement clock: done
   * Status
-    * Node status (idle/broadcasting block...): Not implemented
-    * Node status (internal blockchain and transaction pool): Not implemented
-    * Animation: Not Implemented
+    * Node status (idle/broadcasting block...): done
+    * Node status (internal blockchain and transaction pool): *TODO*
+    * Animation: *TODO*
   * GUI
     * First version: done with simple material-ui
     * Second version: fancier ui not implemented yet
 * Unit Test
-  * Not implemented. Plan to have fake nodes to run with.
+  * Manual Test: done with fake nodes.
+  * *TODO*. Plan to automate.
 
 ---
 

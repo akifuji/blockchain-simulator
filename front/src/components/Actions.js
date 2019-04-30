@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getNodeStatus, setClock, addClock } from '../actions/nodes';
+import { getNodeStatusAsync, setClockAsync, addClockAsync } from '../actions/nodes';
 import { Button } from '@material-ui/core';
 
 function Actions({ nodes, port, clock, getNodeStatus, setClock, addClock }) {
@@ -26,13 +26,13 @@ function mapStateToProps({ nodes, port, clock }) {
 function mapDispatchToProps(dispatch) {
     return {
         getNodeStatus() {
-            dispatch(getNodeStatus());
+            dispatch(getNodeStatusAsync());
         },
         setClock(clock) {
-            dispatch(setClock(clock));
+            dispatch(setClockAsync(clock));
         },
         addClock(diff) {
-            dispatch(addClock(diff));
+            dispatch(addClockAsync(diff));
         }
     };
 }
