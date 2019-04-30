@@ -1,8 +1,27 @@
+import fetch from 'isomorphic-unfetch'
+
 const initialState = {
     nodes: ['node1', 'node2', 'node3'],
     port: 10001,
     clock: 0,
 };
+
+function httpget(host, port, url) {
+    //let fullurl = `http://${host}:${port}${url}`;
+    let fullurl = `http://localhost:${port}${url}`;
+    console.info(`calling ${fullurl}`);
+
+    fetch(fullurl).then((response) => response.json())
+        .then((responseJson) => console.info(responseJson));
+}
+
+function updateClock(state, clk) {
+    let p = 0;
+    state.nodes.forEach(node => {
+        httpget(node, state.port + p, '/clock/' + clk);
+        p++;
+    });
+}
 
 export default function nodesReducer(state = initialState, action) {
     console.info("nodesReducer: %O", action);
@@ -10,7 +29,7 @@ export default function nodesReducer(state = initialState, action) {
         case 'NUM_NODES_CHANGED':
             let nodes = [];
             for (let i = 0; i < action.payload.numNodes; i++) {
-                nodes.push(`node${i + 1}`);
+                nodes.push(`node${i + 1} `);
             }
 
             return {
@@ -26,15 +45,17 @@ export default function nodesReducer(state = initialState, action) {
             // TODO: update node states
             return state;
         case 'SET_CLOCK':
-            // TODO: send new clcok to all nodes
+            // send new clcok to all nodes
+            updateClock(state, action.payload.clock);
             return {
                 ...state,
                 clock: action.payload.clock
             }
         case 'ADD_CLOCK':
-            // TODO: send new clcok to all nodes
             let diff = action.payload.diff
             let newClock = state.clock + diff
+            // send new clcok to all nodes
+            updateClock(state, newClock);
             return {
                 ...state,
                 clock: newClock

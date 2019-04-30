@@ -5,16 +5,20 @@ The following node modules are added.
 * npm install --save @material-ui/core
 * npm install --save redux
 * npm install --save react-redux
-
+* npm install --save isomorphic-unfetch
+  
+The following modules are used in the tests.
+* pip install flask flask_cors
+  
 ## Quick Start
 
 1. cd to front/src directory
-1. (only once) run ```npm install``` to restore packages defined in package.json
-1. yarn start -> browser opens and goes to http://localhost:3000
-1. open another shell -> cd to src/tests/fake
-1. run ```start_fake_nodes.sh```
-1. play with GUI. After clock 3, you can see node state changes
-1. when finished, run ```stop_fake_nodes.sh```
+2. (only once) run ```npm install``` to restore packages defined in package.json
+3. yarn start -> browser opens and goes to http://localhost:3000
+4. open another shell -> cd to src/tests/fake
+5. run ```start_fake_nodes.sh```
+6. play with GUI. After clock 3, you can see node state changes
+7. when finished, run ```stop_fake_nodes.sh```
  
 ## Status
 
