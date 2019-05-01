@@ -1,0 +1,12 @@
+# lines start with '#' is a comment line
+# format: state <tbd>
+idle
+idle
+mining
+mining
+mining
+bloadcacting-block
+idle
+idle
+idle
+idle

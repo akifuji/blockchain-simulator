@@ -1,0 +1,12 @@
+# lines start with '#' is a comment line
+# format: state <tbd>
+idle
+idle
+idle
+idle
+idle
+receiving-block
+idle
+idle
+idle
+idle
