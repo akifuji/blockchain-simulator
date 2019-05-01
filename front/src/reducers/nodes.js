@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-unfetch'
-
 const initialState = {
     nodes: [
         { 'name': 'node1', 'status': 'idle' },

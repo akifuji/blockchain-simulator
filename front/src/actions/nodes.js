@@ -1,9 +1,12 @@
+import fetch from 'isomorphic-unfetch'
+
 export const nodesChanged = (numNodes) => ({
     type: 'NUM_NODES_CHANGED',
     payload: {
         numNodes: parseInt(numNodes, 10)
     }
 });
+
 
 export const portChanged = (port) => ({
     type: 'PORT_CHANGED',
@@ -35,7 +38,6 @@ function updateNodeStatusPerNode(state, dispatch, fullurl, nodeIndex) {
     fetch(fullurl).then(response => response.json())
         .then((responseJson) => {
             console.info('nodeIndex: %d, status: %s', nodeIndex, responseJson.status);
-            // state.nodes[nodeIndex].status = responseJson.status;
             dispatch(getNodeStatus(nodeIndex, responseJson.status));
         });
 }
