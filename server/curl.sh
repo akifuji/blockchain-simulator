@@ -84,3 +84,136 @@ if [ "$node2_status" != '{"clock": 3, "status": 4}' ]; then
     echo {"clock": 3, "status": 4} expected, but got $node2_status
     exit 1
 fi
+
+# clock 4
+# node1: idle
+# node2: idle
+curl -X GET http://localhost:50082/clock/4
+curl -X GET http://localhost:50083/clock/4
+curl -X GET http://localhost:50082/mine
+
+node1_status=$(curl -X GET http://localhost:50082/status)
+if [ "$node1_status" != '{"clock": 4, "status": 1}' ]; then
+    echo {"clock": 4, "status": 1} expected, but got $node1_status
+    exit 1
+fi
+
+node2_status=$(curl -X GET http://localhost:50083/status)
+if [ "$node2_status" != '{"clock": 4, "status": 1}' ]; then
+    echo {"clock": 4, "status": 1} expected, but got $node2_status
+    exit 1
+fi
+
+# clock5
+# node1: mining
+# node2: idle
+curl -X GET http://localhost:50082/clock/5
+curl -X GET http://localhost:50083/clock/5
+
+node1_status=$(curl -X GET http://localhost:50082/status)
+if [ "$node1_status" != '{"clock": 5, "status": 2}' ]; then
+    echo {"clock": 5, "status": 2} expected, but got $node1_status
+    exit 1
+fi
+
+node2_status=$(curl -X GET http://localhost:50083/status)
+if [ "$node2_status" != '{"clock": 5, "status": 1}' ]; then
+    echo {"clock": 5, "status": 1} expected, but got $node2_status
+    exit 1
+fi
+
+# clock6
+# node1: mining
+# node2: idle
+curl -X GET http://localhost:50082/clock/6
+curl -X GET http://localhost:50083/clock/6
+
+node1_status=$(curl -X GET http://localhost:50082/status)
+if [ "$node1_status" != '{"clock": 6, "status": 2}' ]; then
+    echo {"clock": 6, "status": 2} expected, but got $node1_status
+    exit 1
+fi
+
+node2_status=$(curl -X GET http://localhost:50083/status)
+if [ "$node2_status" != '{"clock": 6, "status": 1}' ]; then
+    echo {"clock": 6, "status": 1} expected, but got $node2_status
+    exit 1
+fi
+
+# clock7
+# node1: mining
+# node2: idle
+curl -X GET http://localhost:50082/clock/7
+curl -X GET http://localhost:50083/clock/7
+
+node1_status=$(curl -X GET http://localhost:50082/status)
+if [ "$node1_status" != '{"clock": 7, "status": 2}' ]; then
+    echo {"clock": 7, "status": 2} expected, but got $node1_status
+    exit 1
+fi
+
+node2_status=$(curl -X GET http://localhost:50083/status)
+if [ "$node2_status" != '{"clock": 7, "status": 1}' ]; then
+    echo {"clock": 7, "status": 1} expected, but got $node2_status
+    exit 1
+fi
+
+curl -X GET http://localhost:50082/block/1
+
+# clock8
+# node1: broadcasted_block
+# node2: received_block
+curl -X GET http://localhost:50082/clock/8
+curl -X GET http://localhost:50083/clock/8
+
+node1_status=$(curl -X GET http://localhost:50082/status)
+if [ "$node1_status" != '{"clock": 8, "status": 3}' ]; then
+    echo {"clock": 8, "status": 3} expected, but got $node1_status
+    exit 1
+fi
+
+node2_status=$(curl -X GET http://localhost:50083/status)
+if [ "$node2_status" != '{"clock": 8, "status": 5}' ]; then
+    echo {"clock": 8, "status": 5} expected, but got $node2_status
+    exit 1
+fi
+
+curl -X GET http://localhost:50082/block/1
+
+# clock9
+# node1: idle
+# node2: broadcasted_block
+curl -X GET http://localhost:50082/clock/9
+curl -X GET http://localhost:50083/clock/9
+
+node1_status=$(curl -X GET http://localhost:50082/status)
+if [ "$node1_status" != '{"clock": 9, "status": 1}' ]; then
+    echo {"clock": 9, "status": 1} expected, but got $node1_status
+    exit 1
+fi
+
+node2_status=$(curl -X GET http://localhost:50083/status)
+if [ "$node2_status" != '{"clock": 9, "status": 3}' ]; then
+    echo {"clock": 9, "status": 3} expected, but got $node2_status
+    exit 1
+fi
+
+curl -X GET http://localhost:50083/block/1
+
+# clock10
+# node1: received_block
+# node2: idle
+curl -X GET http://localhost:50082/clock/10
+curl -X GET http://localhost:50083/clock/10
+
+node1_status=$(curl -X GET http://localhost:50082/status)
+if [ "$node1_status" != '{"clock": 10, "status": 5}' ]; then
+    echo {"clock": 10, "status": 5} expected, but got $node1_status
+    exit 1
+fi
+
+node2_status=$(curl -X GET http://localhost:50083/status)
+if [ "$node2_status" != '{"clock": 10, "status": 1}' ]; then
+    echo {"clock": 10, "status": 1} expected, but got $node2_status
+    exit 1
+fi

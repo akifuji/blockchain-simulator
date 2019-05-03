@@ -60,6 +60,7 @@ def get_tx_in_pool():
 @app.route('/mine', methods=['GET'])
 def mine():
     global node
+    node.next_status = STATUS_MINING
     return '', 200
 
 

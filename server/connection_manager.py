@@ -7,9 +7,7 @@ from message_manager import (
     MessageManager,
     MSG_ADD,
     MSG_NEW_BLOCK,
-    MSG_NEW_TX,
-    MSG_ACK_BLOCK,
-    MSG_ACK_TX
+    MSG_NEW_TX
 )
 
 
@@ -65,6 +63,10 @@ class ConnectionManager:
 
     def broadcast_tx(self, tx):
         msg = self.mm.build(MSG_NEW_TX, self.port, json.dumps(tx))
+        self.send_msg_to_all_peer(msg)
+
+    def broadcast_block(self, block):
+        msg = self.mm.build(MSG_NEW_BLOCK, self.port, block.to_dict())
         self.send_msg_to_all_peer(msg)
 
     @staticmethod

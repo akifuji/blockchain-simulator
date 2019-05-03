@@ -18,7 +18,7 @@ node = None
 @app.route('/start')
 def index():
     global node
-    node = Node(65002, '192.168.1.11', 65001)
+    node = Node(65002, '192.168.1.8', 65001)
     node.start()
     node.join_network()
     return '', 200
@@ -61,6 +61,7 @@ def get_tx_in_pool():
 @app.route('/mine', methods=['GET'])
 def mine():
     global node
+    node.next_status = STATUS_MINING
     return '', 200
 
 

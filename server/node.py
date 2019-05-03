@@ -7,9 +7,8 @@ from transaction_pool import TransactionPool
 from message_manager import (
     MSG_NEW_BLOCK,
     MSG_NEW_TX,
-    MSG_ACK_BLOCK,
-    MSG_ACK_TX
 )
+from block import Block
 
 STATUS_IDLE = 1
 STATUS_MINING = 2
@@ -21,10 +20,6 @@ STATUS_RECEIVED_TX = 6
 
 class Node:
     def __init__(self, my_port, node_host=None, node_port=None):
-        self.clock = 0
-        self.status = STATUS_IDLE
-        self.next_status = STATUS_IDLE
-        self.new_tx = None
         self.my_ip = self.__get_myip()
         print('Server IP address is set to ... ', self.my_ip)
         self.my_port = my_port
@@ -33,6 +28,13 @@ class Node:
         self.node_port = node_port
         self.bm = BlockchainManager()
         self.tp = TransactionPool()
+
+        self.clock = 0
+        self.status = STATUS_IDLE
+        self.next_status = STATUS_IDLE
+        self.new_tx = None
+        self.end_mining_clock = None
+        self.new_block = None
 
     def start(self):
         self.cm.start()
@@ -52,9 +54,22 @@ class Node:
             self.__receive_tx()
 
     def __mine(self):
-        self.next_status = STATUS_IDLE
+        if self.end_mining_clock is None:
+            self.end_mining_clock = self.clock + 2
+            self.new_block = self.__generate_block_with_tp()
+            print("new block: ", self.new_block)
+            self.next_status = STATUS_MINING
+        elif self.end_mining_clock > self.clock:
+            self.next_status = STATUS_MINING
+        else:
+            self.bm.set_new_block(self.new_block)
+            self.tp.clear()
+            self.end_mining_clock = None
+            self.next_status = STATUS_BROADCASTED_BLOCK
 
     def __broadcast_block(self):
+        self.cm.broadcast_block(self.new_block)
+        self.new_block = None
         self.next_status = STATUS_IDLE
 
     def __broadcast_tx(self):
@@ -63,14 +78,32 @@ class Node:
         self.next_status = STATUS_IDLE
 
     def __receive_block(self):
-        self.next_status = STATUS_IDLE
+        self.bm.set_new_block(self.new_block)
+        self.next_status = STATUS_BROADCASTED_BLOCK
 
     def __receive_tx(self):
         self.tp.set_tx(self.new_tx)
         self.next_status = STATUS_BROADCASTED_TX
 
+    def __generate_block_with_tp(self):
+        txs = self.tp.get_stored_transaction()
+        if txs:
+            return self.bm.generate_new_block(txs)
+
     def __handle_message(self, msg):
-        if msg[0] == MSG_NEW_TX:
+        if msg[0] == MSG_NEW_BLOCK:
+            block_dict = msg[2]
+            if block_dict['id'] + 1 <= len(self.bm.chain):
+                print("received known block")
+                self.next_status = STATUS_IDLE
+            else:
+                block = Block(block_dict['id'], block_dict['transaction'],
+                              block_dict['previous_block_hash'], block_dict['nonce'],
+                              block_dict['timestamp'])
+                print("received new block", block.to_dict())
+                self.new_block = block
+                self.next_status = STATUS_RECEIVED_BLOCK
+        elif msg[0] == MSG_NEW_TX:
             tx = json.loads(msg[2])
             if tx in self.tp.get_stored_transaction():
                 print("received known tx")
@@ -93,10 +126,6 @@ class Node:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(('8.8.8.8', 80))
         return s.getsockname()[0]
-
-    def __generate_block_with_tp(self):
-        result = self.tp.get_stored_transaction()
-        print('generate_block_with_tp called!')
 
     def get_status(self):
         data = json.dumps(
