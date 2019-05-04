@@ -90,6 +90,12 @@ class Node:
         if txs:
             return self.bm.generate_new_block(txs)
 
+    def add_peer(self, peer):
+        self.cm.add_peer((peer['addr'], peer['port']))
+
+    def clear_peer(self, peer):
+        self.cm.clear_peer((peer['addr'], peer['port']))
+
     def __handle_message(self, msg):
         if msg[0] == MSG_NEW_BLOCK:
             block_dict = msg[2]
@@ -134,6 +140,10 @@ class Node:
                 "status": self.status
             }
         ).encode("utf-8")
+        return data
+
+    def get_peers(self):
+        data = json.dumps(self.cm.peers).encode('utf-8')
         return data
 
     def get_latest_block(self):

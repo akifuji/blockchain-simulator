@@ -25,6 +25,12 @@ def get_status():
     return node.get_status()
 
 
+@app.route('/peer', methods=['GET'])
+def get_peers():
+    global node
+    return node.get_peers()
+
+
 @app.route('/block/latest', methods=['GET'])
 def get_latest_block():
     global node
@@ -74,6 +80,23 @@ def add_tx():
     node.new_tx = tx
     node.next_status = STATUS_RECEIVED_TX
     return 'success', 200
+
+
+@app.route('/peer/add', methods=['POST'])
+def add_peer():
+    global node
+    peer = request.get_json()
+    node.add_peer(peer)
+    return 'success', 200
+
+
+@app.route('/peer/clear', methods=['POST'])
+def clear_peer():
+    global node
+    peer = request.get_json()
+    node.clear_peer(peer)
+    return 'success', 200
+
 
 
 if __name__ == '__main__':

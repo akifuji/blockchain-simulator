@@ -217,3 +217,5 @@ if [ "$node2_status" != '{"clock": 10, "status": 1}' ]; then
     echo {"clock": 10, "status": 1} expected, but got $node2_status
     exit 1
 fi
+
+curl -H "Content-type: application/json" -X POST -d '{"addr": "192.168.1.8", "port": 65003}' localhost:50082/peer/clear
