@@ -4,8 +4,8 @@ import json
 MSG_ADD = 0
 MSG_NEW_BLOCK = 1
 MSG_NEW_TX = 2
-MSG_ACK_BLOCK = 2
-MSG_ACK_TX = 3
+MSG_REQ_CHAIN = 2
+MSG_CHAIN = 3
 
 
 class MessageManager:

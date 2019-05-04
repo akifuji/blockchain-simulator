@@ -6,7 +6,8 @@ from message_manager import (
     MessageManager,
     MSG_ADD,
     MSG_NEW_BLOCK,
-    MSG_NEW_TX
+    MSG_NEW_TX,
+    MSG_CHAIN
 )
 
 
@@ -70,6 +71,14 @@ class ConnectionManager:
     def broadcast_block(self, block):
         msg = self.mm.build(MSG_NEW_BLOCK, self.port, block.to_dict())
         self.send_msg_to_all_peer(msg)
+
+    def request_chain(self, port):
+        msg = self.mm.build(MSG_NEW_BLOCK, self.port)
+        self.send_msg(('192.168.1.8', port), msg)
+
+    def send_chain(self, chain, port):
+        msg = self.mm.build(MSG_CHAIN, self.port, chain)
+        self.send_msg(('192.168.1.8', port), msg)
 
     @staticmethod
     def send_msg(peer, msg):
