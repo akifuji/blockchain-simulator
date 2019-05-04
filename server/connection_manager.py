@@ -1,6 +1,5 @@
 import socket
 import threading
-from concurrent.futures import ThreadPoolExecutor
 import json
 
 from message_manager import (
@@ -18,6 +17,8 @@ class ConnectionManager:
         self.node_set = set()
         self.mm = MessageManager()
         self.callback = callback
+        self.node_set = [('192.168.1.8', 65001),('192.168.1.8', 65002),
+            ('192.168.1.8', 65003)]
 
     def start(self):
         t = threading.Thread(target=self.__wait_for_access)
@@ -31,14 +32,13 @@ class ConnectionManager:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind((self.host, self.port))
         self.socket.listen(0)
-        executor = ThreadPoolExecutor(max_workers=10)
 
         while True:
             print('Waiting for the connection ...')
             soc, addr = self.socket.accept()
             data_sum = ''
             params = (soc, addr, data_sum)
-            executor.submit(self.__handle_message, params)
+            self.__handle_message(params)
 
     def __handle_message(self, params):
         soc, addr, data_sum = params

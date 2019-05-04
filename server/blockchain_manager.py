@@ -24,3 +24,4 @@ class BlockchainManager:
                 return new_block
             i += 1
 
+

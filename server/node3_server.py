@@ -14,7 +14,7 @@ node = None
 @app.route('/start')
 def index():
     global node
-    node = Node(65001)
+    node = Node(65003)
     node.start()
     return '', 200
 
@@ -78,4 +78,4 @@ def add_tx():
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=50082)
+    app.run(host='0.0.0.0', port=50084)

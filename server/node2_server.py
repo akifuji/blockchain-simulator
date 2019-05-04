@@ -3,11 +3,7 @@ from flask import request
 
 from node import (
     Node,
-    STATUS_IDLE,
     STATUS_MINING,
-    STATUS_BROADCASTED_BLOCK,
-    STATUS_BROADCASTED_TX,
-    STATUS_RECEIVED_BLOCK,
     STATUS_RECEIVED_TX
 )
 
@@ -18,9 +14,8 @@ node = None
 @app.route('/start')
 def index():
     global node
-    node = Node(65002, '192.168.1.8', 65001)
+    node = Node(65002)
     node.start()
-    node.join_network()
     return '', 200
 
 
