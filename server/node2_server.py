@@ -3,11 +3,7 @@ from flask import request
 
 from node import (
     Node,
-    STATUS_IDLE,
     STATUS_MINING,
-    STATUS_BROADCASTED_BLOCK,
-    STATUS_BROADCASTED_TX,
-    STATUS_RECEIVED_BLOCK,
     STATUS_RECEIVED_TX
 )
 
@@ -18,9 +14,8 @@ node = None
 @app.route('/start')
 def index():
     global node
-    node = Node(65002, '192.168.1.11', 65001)
+    node = Node(65002)
     node.start()
-    node.join_network()
     return '', 200
 
 
@@ -28,6 +23,12 @@ def index():
 def get_status():
     global node
     return node.get_status()
+
+
+@app.route('/peer', methods=['GET'])
+def get_peers():
+    global node
+    return node.get_peers()
 
 
 @app.route('/block/latest', methods=['GET'])
@@ -61,6 +62,7 @@ def get_tx_in_pool():
 @app.route('/mine', methods=['GET'])
 def mine():
     global node
+    node.next_status = STATUS_MINING
     return '', 200
 
 
@@ -77,6 +79,22 @@ def add_tx():
     tx = request.get_json()
     node.new_tx = tx
     node.next_status = STATUS_RECEIVED_TX
+    return 'success', 200
+
+
+@app.route('/peer/add', methods=['POST'])
+def add_peer():
+    global node
+    peer = request.get_json()
+    node.add_peer(peer)
+    return 'success', 200
+
+
+@app.route('/peer/clear', methods=['POST'])
+def clear_peer():
+    global node
+    peer = request.get_json()
+    node.clear_peer(peer)
     return 'success', 200
 
 

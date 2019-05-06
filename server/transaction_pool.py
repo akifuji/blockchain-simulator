@@ -18,3 +18,6 @@ class TransactionPool:
         else:
             print("transaction pool is empty")
             return []
+
+    def clear(self):
+        self.transaction = []
