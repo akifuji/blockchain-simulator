@@ -1,3 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background: #e7eef8;
+}
+
+body {
+  background: transparent;
+}
+
 .App {
-  /* text-align: center; */
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+}
+
+.Section {
+  padding: 10px 0px;
+}
+
+.Node {
+  display: grid;
+  font-family: monospace;
+  grid-template-rows: 20px 20px 20px 20px;
+  grid-template-columns: 44px 1fr;
+}
+
+.NodeIcon {
+  grid-column: 1/2;
+  grid-row: 2/4;
+  justify-content: center;
+  align-content: end;
+  /* background: red; */
+}
+
+.NodeName {
+  font-weight: bold;
+  grid-column: 2/3;
+  /* background: yellow; */
+}
+
+.NodeStatus {
+  grid-column: 2/3;
+  /* background: lightcoral; */
+}
+
+.NodeBc {
+  grid-column: 2/3;
+  /* background: lightblue; */
+}
+
+.NodeTp {
+  grid-column: 2/3;
+  /* background: lightyellow; */
 }

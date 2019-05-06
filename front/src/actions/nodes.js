@@ -7,7 +7,6 @@ export const nodesChanged = (numNodes) => ({
     }
 });
 
-
 export const portChanged = (port) => ({
     type: 'PORT_CHANGED',
     payload: {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { CssBaseline, AppBar, Toolbar, Typography } from '@material-ui/core';
+import { CssBaseline } from '@material-ui/core';
 import { connect } from 'react-redux';
 import Config from './Config';
 import Actions from './Actions';
@@ -10,18 +10,18 @@ function App({ nodes, port, clock }) {
   return (
     <div className="App">
       <CssBaseline />
-      <AppBar position="static">
-        <Toolbar>
-          <Typography type="title" color="inherit">
-            Blockchain Simulator
-            </Typography>
-        </Toolbar>
-      </AppBar>
+      <h2>Blockchain Simulator</h2>
 
-      <Config />
-      <Actions />
-      <Status />
-    </div>
+      <div className="Section" >
+        <Config />
+      </div>
+      <div className="Section" >
+        <Actions />
+      </div>
+      <div className="Section" >
+        <Status />
+      </div>
+    </div >
   );
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getNodeStatusAsync, setClockAsync, addClockAsync } from '../actions/nodes';
 import { Button } from '@material-ui/core';
@@ -37,4 +38,8 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Actions);
+//export default connect(mapStateToProps, mapDispatchToProps)(Actions);
+export default compose(
+    //    withStyles(styles),
+    connect(mapStateToProps, mapDispatchToProps)
+)(Actions);

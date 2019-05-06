@@ -7,6 +7,8 @@ The following node modules are added.
 * npm install --save react-redux
 * npm install --save redux-thunk
 * npm install --save isomorphic-unfetch
+* npm install --save react-pose
+* npm install --save react-spring
 
 The following modules are used in the tests.
 
