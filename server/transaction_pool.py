@@ -7,10 +7,10 @@ class TransactionPool:
         self.transaction = []
         self.lock = threading.Lock()
 
-    def set_tx(self, tx):
+    def set_tx(self, txs):
         with self.lock:
-            print('set_tx is called', tx)
-            self.transaction.append(tx)
+            print('set_tx is called', txs)
+            self.transaction += txs
 
     def get_stored_transaction(self):
         if len(self.transaction) > 0:

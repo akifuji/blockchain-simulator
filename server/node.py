@@ -37,7 +37,7 @@ class Node:
         self.clock = 0
         self.status = STATUS_IDLE
         self.next_status = STATUS_IDLE
-        self.new_tx = None
+        self.new_txs = []
         self.end_mining_clock = None
         self.new_block = None
         self.to_port = None
@@ -92,8 +92,8 @@ class Node:
         self.next_status = STATUS_IDLE
 
     def __broadcast_tx(self):
-        self.cm.broadcast_tx(self.new_tx)
-        self.new_tx = None
+        self.cm.broadcast_tx(self.new_txs)
+        self.new_txs = []
         self.next_status = STATUS_IDLE
 
     def __receive_block(self):
@@ -101,7 +101,7 @@ class Node:
         self.next_status = STATUS_BROADCASTED_BLOCK
 
     def __receive_tx(self):
-        self.tp.set_tx(self.new_tx)
+        self.tp.set_tx(self.new_txs)
         self.next_status = STATUS_BROADCASTED_TX
 
     def __request_chain(self):
@@ -145,14 +145,15 @@ class Node:
                     self.to_port = msg[1]
                     self.next_status = STATUS_REQUEST_CHAIN
         elif msg[0] == MSG_NEW_TX:
-            tx = json.loads(msg[2])
-            if tx in self.tp.get_stored_transaction():
-                print("received known tx")
-                self.next_status = STATUS_IDLE
-            else:
-                print("received new tx", tx)
-                self.new_tx = tx
-                self.next_status = STATUS_RECEIVED_TX
+            txs = json.loads(msg[2])
+            self.next_status = STATUS_IDLE
+            for tx in txs:
+                if tx in self.tp.get_stored_transaction():
+                    print("received known tx")
+                else:
+                    print("received new tx", tx)
+                    self.new_txs.append(tx)
+                    self.next_status = STATUS_RECEIVED_TX
         elif msg[0] == MSG_REQ_CHAIN:
             self.to_port = msg[1]
             self.next_status = STATUS_SENT_CHAIN
