@@ -146,7 +146,6 @@ class Node:
                     self.next_status = STATUS_REQUEST_CHAIN
         elif msg[0] == MSG_NEW_TX:
             txs = json.loads(msg[2])
-            self.next_status = STATUS_IDLE
             for tx in txs:
                 if tx in self.tp.get_stored_transaction():
                     print("received known tx")
