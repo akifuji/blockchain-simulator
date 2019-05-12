@@ -13,14 +13,16 @@ function App({ nodes, port, clock }) {
       <CssBaseline />
       <h2>Blockchain Simulator</h2>
 
-      <div className="Section" >
-        <Config />
+      <div className="TwoSections" >
+        <div className="SectionLeft" >
+          <Config />
+        </div>
+        <div className="SectionRight" >
+          <Accounts />
+        </div>
       </div>
       <div className="Section" >
         <Actions />
-      </div>
-      <div className="Section" >
-        <Accounts />
       </div>
       <div className="Section" >
         <Status />

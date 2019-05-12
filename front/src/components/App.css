@@ -20,12 +20,24 @@ body {
 .App {
   width: 100%;
   height: 100%;
-  padding: 2rem;
+  padding: 0rem 1rem;
 }
 
-.Section {
-  padding: 4px 0px;
+.Section {}
+
+.TwoSections {
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
+
+.SectionLeft {
+  grid-column: 1/2;
+}
+
+.SectionRight {
+  grid-column: 2/3;
+}
+
 
 .Draggable {
   position: relative;
@@ -70,8 +82,8 @@ body {
 /* mining overlay */
 .StateIconBottomRight {
   position: absolute;
-  top: 26px;
-  left: 14px;
+  top: 28px;
+  left: 8px;
 }
 
 /* broadcasting overlay etc */
