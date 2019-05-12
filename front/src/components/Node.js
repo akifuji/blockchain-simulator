@@ -24,7 +24,7 @@ function Node({ name, status, port, blocks, transactions }) {
     }
 
     return (
-        <Draggable>
+        <Draggable className="Draggable">
             <div className="Node">
                 <div className="NodeIcon">
                     {icon}

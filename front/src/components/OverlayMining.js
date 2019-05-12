@@ -8,16 +8,16 @@ const Content = Keyframes.Spring(async next => {
     // None of this will cause React to render, the component renders only once :-)
     while (true) {
         await next({
-            from: { width: 20, height: 20 },
+            from: { width: 20, height: 20, transformOrigin: "0% 50%"},
             config: config.default,
             transform:
-                'rotate(270deg)',
+                'rotate(0deg)',
 
         })
         await next({
             config: config.default,
             transform:
-                'rotate(225deg)',
+                'rotate(45deg)',
         })
     }
 });

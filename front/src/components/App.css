@@ -27,6 +27,10 @@ body {
   padding: 4px 0px;
 }
 
+.Draggable {
+  position: relative;
+}
+
 .Node {
   display: grid;
   font-family: monospace;
@@ -66,8 +70,8 @@ body {
 /* mining overlay */
 .StateIconBottomRight {
   position: absolute;
-  top: 40px;
-  left: 26px;
+  top: 26px;
+  left: 14px;
 }
 
 /* broadcasting overlay etc */

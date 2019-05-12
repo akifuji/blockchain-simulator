@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-unfetch'
-import { format } from 'path';
 
 export const nodesChanged = (numNodes) => ({
     type: 'NUM_NODES_CHANGED',
