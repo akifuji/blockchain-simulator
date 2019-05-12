@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from flask_cors import CORS
 
 from node import (
     Node,
@@ -8,6 +9,7 @@ from node import (
 )
 
 app = Flask(__name__)
+CORS(app)
 node = None
 
 
@@ -103,7 +105,6 @@ def clear_peer():
     peer = request.get_json()
     node.clear_peer(peer)
     return 'success', 200
-
 
 
 if __name__ == '__main__':
