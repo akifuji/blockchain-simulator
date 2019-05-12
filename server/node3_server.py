@@ -12,10 +12,17 @@ node = None
 
 
 @app.route('/start')
-def index():
+def start():
     global node
     node = Node(65003)
     node.start()
+    return '', 200
+
+
+@app.route('/reset')
+def reset():
+    global node
+    node.reset()
     return '', 200
 
 

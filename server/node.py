@@ -45,6 +45,13 @@ class Node:
     def start(self):
         self.cm.start()
 
+    def reset(self):
+        self.bm.clear_chain()
+        self.tp.clear()
+        self.clock = 0
+        self.status = STATUS_IDLE
+        self.next_status = STATUS_IDLE
+
     def work(self, clock):
         self.clock = clock
         self.status = self.next_status

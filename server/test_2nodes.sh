@@ -218,4 +218,20 @@ if [ "$node2_status" != '{"clock": 10, "status": 1}' ]; then
     exit 1
 fi
 
-curl -H "Content-type: application/json" -X POST -d '{"addr": "192.168.1.8", "port": 65003}' localhost:50082/peer/clear
+# reset
+# node1: idle
+# node2: idle
+curl -X GET http://localhost:50082/reset
+curl -X GET http://localhost:50083/reset
+
+node1_status=$(curl -X GET http://localhost:50082/status)
+if [ "$node1_status" != '{"clock": 0, "status": 1}' ]; then
+    echo {"clock": 0, "status": 1} expected, but got $node1_status
+    exit 1
+fi
+
+node2_status=$(curl -X GET http://localhost:50083/status)
+if [ "$node2_status" != '{"clock": 0, "status": 1}' ]; then
+    echo {"clock": 0, "status": 1} expected, but got $node2_status
+    exit 1
+fi

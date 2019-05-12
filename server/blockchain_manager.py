@@ -3,7 +3,9 @@ import json
 
 from block import Block
 
-GENESIS_BLOCK = Block(0, [{"sender": None, "recipient": "aki", "value": 10}], None, 0, 9999999)
+GENESIS_BLOCK = Block(0, [{"sender": None, "recipient": "aki", "value": 2},
+                          {"sender": None, "recipient": "so", "value": 7},
+                          {"sender": None, "recipient": "satoshi", "value": 5}], None, 0, 9999999)
 
 
 class BlockchainManager:
@@ -31,4 +33,4 @@ class BlockchainManager:
         return json.dumps(chain_dict_list).encode('utf-8')
 
     def clear_chain(self):
-        self.chain = []
+        self.chain = [GENESIS_BLOCK]

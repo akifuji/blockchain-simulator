@@ -154,3 +154,4 @@ if [ "$node2_status" != '{"clock": 5, "status": 1}' ]; then
 fi
 
 
+curl -H "Content-type: application/json" -X POST -d '{"addr": "192.168.1.8", "port": 65003}' localhost:50082/peer/clear

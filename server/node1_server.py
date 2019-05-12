@@ -12,10 +12,17 @@ node = None
 
 
 @app.route('/start')
-def index():
+def start():
     global node
     node = Node(65001)
     node.start()
+    return '', 200
+
+
+@app.route('/reset')
+def reset():
+    global node
+    node.reset()
     return '', 200
 
 
@@ -96,7 +103,6 @@ def clear_peer():
     peer = request.get_json()
     node.clear_peer(peer)
     return 'success', 200
-
 
 
 if __name__ == '__main__':
