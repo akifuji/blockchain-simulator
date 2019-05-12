@@ -14,6 +14,40 @@ export const portChanged = (port) => ({
     }
 })
 
+const start = (nodeIndex, responseText) => ({
+    type: 'START',
+    payload: {
+        nodeIndex: nodeIndex,
+        response: responseText
+    }
+})
+
+function sendStartMessage(state, dispatch) {
+    let p = 0;
+
+    state.nodes.forEach(node => {
+        let fullurl = `http://localhost:${state.port + p}/start`;
+        console.info(`calling ${fullurl}`);
+        sendStartMessagePerNode(state, dispatch, fullurl, p);
+        p++;
+    });
+}
+
+function sendStartMessagePerNode(state, dispatch, fullurl, nodeIndex) {
+    fetch(fullurl).then(response => response.text())
+        .then((responseText) => {
+            console.info('nodeIndex: %d, response: %s', nodeIndex, responseText);
+            dispatch(start(nodeIndex, responseText));
+        });
+}
+
+export function startAsync() {
+    return (dispatch, getState) => {
+        sendStartMessage(getState(), dispatch);
+    };
+}
+
+
 const getNodeStatus = (nodeIndex, status) => ({
     type: 'GET_NODE_STATUS',
     payload: {
@@ -63,9 +97,9 @@ function setClock(state, dispatch, clk) {
         let getStatusUrl = `http://localhost:${state.port + p}/status`;
         let getStatusNodeIndex = p;
 
-        fetch(fullurl).then((response) => response.json())
-            .then((responseJson) => {
-                console.info(responseJson);
+        fetch(fullurl).then((response) => response.text())
+            .then((responseText) => {
+                console.info(responseText);
                 updateNodeStatusPerNode(state, dispatch, getStatusUrl, getStatusNodeIndex);
                 dispatch(setClockSub(clk));
             });

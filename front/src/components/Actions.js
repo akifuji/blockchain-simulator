@@ -1,14 +1,15 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { getNodeStatusAsync, setClockAsync, addClockAsync } from '../actions/nodes';
+import { startAsync, getNodeStatusAsync, setClockAsync, addClockAsync } from '../actions/nodes';
 import { Button } from '@material-ui/core';
 
-function Actions({ nodes, port, clock, getNodeStatus, setClock, addClock }) {
+function Actions({ nodes, port, clock, start, getNodeStatus, setClock, addClock }) {
     return (
         <>
             <h3>Actions:</h3>
-            <Button variant="contained" color="primary" onClick={() => getNodeStatus()}>Get Status</Button>
+            <Button variant="contained" color="primary" onClick={() => start()}>Start</Button>
+            <Button variant="contained" color="default" onClick={() => getNodeStatus()}>Get Status</Button>
             <Button variant="contained" color="default" onClick={() => addClock(1)} > Clock++</Button>
             <Button variant="contained" color="default" onClick={() => addClock(-1)}> Clock--</Button >
             <Button variant="contained" color="default" onClick={() => setClock(0)}>Reset Clock</Button>
@@ -26,6 +27,9 @@ function mapStateToProps({ nodes, port, clock }) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        start() {
+            dispatch(startAsync());
+        },
         getNodeStatus() {
             dispatch(getNodeStatusAsync());
         },

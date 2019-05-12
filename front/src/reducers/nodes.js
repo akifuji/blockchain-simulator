@@ -28,6 +28,11 @@ export default function nodesReducer(state = initialState, action) {
                 ...state,
                 port: action.payload.port
             }
+        case 'START':
+            // TODO: Update accounts/balance
+            return {
+                ...state
+            }
         case 'GET_NODE_STATUS':
             nodes = Array.from(state.nodes);
             nodes[action.payload.nodeIndex].status = action.payload.status;
