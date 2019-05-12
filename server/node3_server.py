@@ -84,7 +84,7 @@ def set_clock(clock):
 def add_tx():
     global node
     tx = request.get_json()
-    node.new_tx.append(tx)
+    node.new_txs.append(tx)
     node.next_status = STATUS_RECEIVED_TX
     return 'success', 200
 
