@@ -1,8 +1,15 @@
+import { statusIdToString, accountNameToId } from "../global.js";
+
 const initialState = {
     nodes: [
         { 'name': 'node1', 'status': 'idle' },
         { 'name': 'node2', 'status': 'idle' },
         { 'name': 'node3', 'status': 'idle' },
+    ],
+    accounts: [
+        { 'name': 'aki', 'balance': 0 },
+        { 'name': 'so', 'balance': 0 },
+        { 'name': 'satoshi', 'balance': 0 },
     ],
     port: 50082,
     clock: 0,
@@ -12,6 +19,10 @@ const initialState = {
 export default function nodesReducer(state = initialState, action) {
     console.info("nodesReducer: %O", action);
     let nodes;
+    let status;
+    let accounts;
+    let accountId;
+
     switch (action.type) {
         case 'NUM_NODES_CHANGED':
             nodes = [];
@@ -29,13 +40,41 @@ export default function nodesReducer(state = initialState, action) {
                 port: action.payload.port
             }
         case 'START':
-            // TODO: Update accounts/balance
             return {
-                ...state
+                ...state,
+                clock: 0
+            }
+        case 'ALL_BLOCKS':
+            console.info('allblocks: %O', action.payload.allblocks);
+            // reset all balances to 0
+            accounts = Array.from(state.accounts);
+            accounts.forEach(function (item) {
+                item.balance = 0;
+            });
+
+            // process all blocks
+            action.payload.allblocks.forEach(function (block) {
+                block.transaction.forEach(function (t) {
+                    if (t.sender != null) {
+                        accountId = accountNameToId(t.sender, accounts);
+                        accounts[accountId].balance -= t.value;
+                    }
+                    if (t.recipient != null) {
+                        accountId = accountNameToId(t.recipient, accounts);
+                        accounts[accountId].balance += t.value;
+                    }
+                });
+            });
+
+            console.warn(accounts);
+            return {
+                ...state,
+                accounts: accounts
             }
         case 'GET_NODE_STATUS':
             nodes = Array.from(state.nodes);
-            nodes[action.payload.nodeIndex].status = action.payload.status;
+            status = statusIdToString(action.payload.status);
+            nodes[action.payload.nodeIndex].status = status;
             return {
                 ...state,
                 nodes: nodes

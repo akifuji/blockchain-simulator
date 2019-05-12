@@ -22,6 +22,13 @@ const start = (nodeIndex, responseText) => ({
     }
 })
 
+const updateBalance = (responseJson) => ({
+    type: 'ALL_BLOCKS',
+    payload: {
+        allblocks: responseJson
+    }
+})
+
 function sendStartMessage(state, dispatch) {
     let p = 0;
 
@@ -38,6 +45,16 @@ function sendStartMessagePerNode(state, dispatch, fullurl, nodeIndex) {
         .then((responseText) => {
             console.info('nodeIndex: %d, response: %s', nodeIndex, responseText);
             dispatch(start(nodeIndex, responseText));
+        })
+        .then(() => {
+            if (nodeIndex === 0) {
+                let fullurl = `http://localhost:${state.port + nodeIndex}/block/all`;
+                console.info('calling %s', fullurl);
+                fetch(fullurl).then(response => response.json())
+                    .then((responseJson) => {
+                        dispatch(updateBalance(responseJson));
+                    })
+            }
         });
 }
 

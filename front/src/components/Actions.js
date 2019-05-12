@@ -3,6 +3,16 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { startAsync, getNodeStatusAsync, setClockAsync, addClockAsync } from '../actions/nodes';
 import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
 
 function Actions({ nodes, port, clock, start, getNodeStatus, setClock, addClock }) {
     return (
@@ -11,7 +21,7 @@ function Actions({ nodes, port, clock, start, getNodeStatus, setClock, addClock 
             <Button variant="contained" color="primary" onClick={() => start()}>Start</Button>
             <Button variant="contained" color="default" onClick={() => getNodeStatus()}>Get Status</Button>
             <Button variant="contained" color="default" onClick={() => addClock(1)} > Clock++</Button>
-            <Button variant="contained" color="default" onClick={() => addClock(-1)}> Clock--</Button >
+            {/* <Button variant="contained" color="default" onClick={() => addClock(-1)}> Clock--</Button > */}
             <Button variant="contained" color="default" onClick={() => setClock(0)}>Reset Clock</Button>
         </>
     );
@@ -42,8 +52,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-//export default connect(mapStateToProps, mapDispatchToProps)(Actions);
 export default compose(
-    //    withStyles(styles),
+    withStyles(styles),
     connect(mapStateToProps, mapDispatchToProps)
 )(Actions);

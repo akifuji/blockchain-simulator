@@ -4,6 +4,7 @@ import { CssBaseline } from '@material-ui/core';
 import { connect } from 'react-redux';
 import Config from './Config';
 import Actions from './Actions';
+import Accounts from './Accounts';
 import Status from './Status';
 
 function App({ nodes, port, clock }) {
@@ -17,6 +18,9 @@ function App({ nodes, port, clock }) {
       </div>
       <div className="Section" >
         <Actions />
+      </div>
+      <div className="Section" >
+        <Accounts />
       </div>
       <div className="Section" >
         <Status />

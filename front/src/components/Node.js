@@ -17,9 +17,9 @@ function Node({ name, status, port }) {
         overlay = <OverlayBroadcasting stroke="SpringGreen" />;
     } else if (status === "receiving-block") {
         overlay = <OverlayReceiving stroke="LightGreen" />;
-    } else if (status === "broadcasting-transaction") {
+    } else if (status === "broadcasting-tx") {
         overlay = <OverlayBroadcasting stroke="DeepSkyBlue" />;
-    } else if (status === "receiving-transaction") {
+    } else if (status === "receiving-tx") {
         overlay = <OverlayReceiving stroke="LightSkyblue" />;
     }
 
