@@ -11,7 +11,7 @@ function Status({ clock, nodes, port }) {
             {
                 nodes.map(function (node, i) {
                     return (
-                        <Node key={i} name={`${node.name}`} status={`${node.status}`} />
+                        <Node key={i} name={`${node.name}`} status={`${node.status}`} blocks={`${node.blocks}`} transactions={`${node.transactions}`} />
                     );
                 })
             }

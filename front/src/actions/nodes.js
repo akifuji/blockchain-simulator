@@ -23,12 +23,27 @@ const start = (nodeIndex, responseText) => ({
 })
 
 const updateBalance = (responseJson) => ({
-    type: 'ALL_BLOCKS',
+    type: 'ALL_BLOCKS_FOR_BALANCE',
     payload: {
         allblocks: responseJson
     }
 })
 
+const updateBlockchain = (nodeIndex, responseJson) => ({
+    type: 'ALL_BLOCKS',
+    payload: {
+        nodeIndex: nodeIndex,
+        allblocks: responseJson
+    }
+})
+
+const updateTxPool = (nodeIndex, responseJson) => ({
+    type: 'ALL_TRANSACTIONS',
+    payload: {
+        nodeIndex: nodeIndex,
+        alltransactions: responseJson
+    }
+})
 function sendStartMessage(state, dispatch) {
     let p = 0;
 
@@ -47,6 +62,7 @@ function sendStartMessagePerNode(state, dispatch, fullurl, nodeIndex) {
             dispatch(start(nodeIndex, responseText));
         })
         .then(() => {
+            // only the first node update balances
             if (nodeIndex === 0) {
                 let fullurl = `http://localhost:${state.port + nodeIndex}/block/all`;
                 console.info('calling %s', fullurl);
@@ -89,6 +105,27 @@ function updateNodeStatusPerNode(state, dispatch, fullurl, nodeIndex) {
         .then((responseJson) => {
             console.info('nodeIndex: %d, status: %s', nodeIndex, responseJson.status);
             dispatch(getNodeStatus(nodeIndex, responseJson.status));
+        })
+        .then(() => {
+            let fullurl = `http://localhost:${state.port + nodeIndex}/block/all`;
+            console.info('calling %s', fullurl);
+            fetch(fullurl).then(response => response.json())
+                .then((responseJson) => {
+                    // only the first node updates balances
+                    if (nodeIndex === 0) {
+                        dispatch(updateBalance(responseJson));
+                    }
+                    // all nodes update their blockchain length
+                    dispatch(updateBlockchain(nodeIndex, responseJson))
+                });
+            fullurl = `http://localhost:${state.port + nodeIndex}/txPool/all`;
+            console.info('calling %s', fullurl);
+            fetch(fullurl).then(response => response.json())
+                .then((responseJson) => {
+
+                    // all nodes update their txPool length
+                    dispatch(updateTxPool(nodeIndex, responseJson))
+                })
         });
 }
 
