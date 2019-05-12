@@ -20,9 +20,9 @@ class ConnectionManager:
         self.peers = set()
 
         # connect to 2 peers
-        self.peers = [(host, 65001), (host, 65002)]
+        # self.peers = [(host, 65001), (host, 65002)]
         # connect to 3 peers
-        # self.peers = [(host, 65001), (host, 65002), (host, 65003)]
+        self.peers = [(host, 65001), (host, 65002), (host, 65003)]
 
     def start(self):
         t = threading.Thread(target=self.__wait_for_access)

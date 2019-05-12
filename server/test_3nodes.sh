@@ -93,7 +93,7 @@ fi
 # clock 3
 # node1: idle
 # node2: broadcasted_tx
-# node3: idle <- どうしよう！！
+# node3: broadcasted_tx
 curl -X GET http://localhost:50082/clock/3
 curl -X GET http://localhost:50083/clock/3
 curl -X GET http://localhost:50084/clock/3
@@ -111,8 +111,8 @@ if [ "$node2_status" != '{"clock": 3, "status": 4}' ]; then
 fi
 
 node3_status=$(curl -X GET http://localhost:50084/status)
-if [ "$node3_status" != '{"clock": 3, "status": 1}' ]; then
-    echo {"clock": 3, "status": 1} expected, but got $node3_status
+if [ "$node3_status" != '{"clock": 3, "status": 4}' ]; then
+    echo {"clock": 3, "status": 4} expected, but got $node3_status
     exit 1
 fi
 
@@ -154,4 +154,4 @@ if [ "$node2_status" != '{"clock": 5, "status": 1}' ]; then
 fi
 
 
-curl -H "Content-type: application/json" -X POST -d '{"addr": "192.168.1.8", "port": 65003}' localhost:50082/peer/clear
+# curl -H "Content-type: application/json" -X POST -d '{"addr": "192.168.1.8", "port": 65003}' localhost:50082/peer/clear
