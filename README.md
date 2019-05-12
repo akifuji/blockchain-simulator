@@ -47,6 +47,7 @@ The genesis block has these three transactions.
 
 #### reset
 * reset state
+* clock is 0, tx pool is empty, and chain contains the Genesis block only.
 
 #### status
 * return status in JSON
