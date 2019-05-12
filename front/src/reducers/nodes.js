@@ -4,7 +4,7 @@ const initialState = {
         { 'name': 'node2', 'status': 'idle' },
         { 'name': 'node3', 'status': 'idle' },
     ],
-    port: 10001,
+    port: 50082,
     clock: 0,
 };
 

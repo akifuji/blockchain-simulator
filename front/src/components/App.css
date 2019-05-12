@@ -31,7 +31,7 @@ body {
   display: grid;
   font-family: monospace;
   grid-template-rows: 20px 20px 20px 20px;
-  grid-template-columns: 44px 1fr;
+  grid-template-columns: 64px 1fr;
 }
 
 .NodeIcon {
@@ -61,4 +61,18 @@ body {
 .NodeTp {
   grid-column: 2/3;
   /* background: lightyellow; */
+}
+
+/* mining overlay */
+.StateIconBottomRight {
+  position: absolute;
+  top: 40px;
+  left: 26px;
+}
+
+/* broadcasting overlay etc */
+.StateIconOverlay {
+  position: absolute;
+  top: 20px;
+  left: 0px;
 }
