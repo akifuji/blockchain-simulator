@@ -1,15 +1,53 @@
 # Blockchain Simulator
 
+## Server Getting Start
+1. Activate venv. `$ source server/myvenv/bin/activate`
+2. At `__init__` in `connection_manager.py`, choose how many peers to connect.
+```python
+class ConnectionManager:
+    def __init__(self, host, port, callback):
+        self.host = host
+        self.port = port
+        self.mm = MessageManager()
+        self.callback = callback
+        self.peers = set()
+        
+        # connect to 2 peers
+        self.peers = [(host, 65001), (host, 65002)]
+        # connect to 3 peers
+        # self.peers = [(host, 65001), (host, 65002), (host, 65003)]
+``` 
+3. Start node server. `$ python node1_server.py`
+    - There are `node1_server.py`, `node2_server.py`, and `node3_server.py`
+    - Each node's port is `50082`, `50083`, and `50084`
+4. Send HTTP GET `start` for every nodes
+5. You can send any APIs :tada:
+
 ## 登場人物
 * node: node1, node2, node3
 * account: aki, so, satoshi
 * controller
+
+### Genesis block
+The genesis block has these three transactions.
+```
+[ {"sender": None, "recipient": "aki", "value": 2},
+  {"sender": None, "recipient": "so", "value": 7},
+  {"sender": None, "recipient": "satoshi", "value": 5} ]
+```
 
 ## API (controllers - nodes)
 * https://$node-simulator-host:$port/$api
 	* eg.) curl -X GET http://localhost:10001/status
 
 ### HTTP GET
+#### start
+* activate node
+* need to be used every time you start the program
+
+#### reset
+* reset state
+
 #### status
 * return status in JSON
 * return value
