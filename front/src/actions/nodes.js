@@ -233,15 +233,17 @@ export function addTx() {
         let port = getState().port;
 
         let fullurl = `http://localhost:${port + targetNode}/tx/add`;
-        console.info(`calling ${fullurl}`);
-
-        const obj = { sender: getState().tx.format, recipient: getState().tx.to, value: getState().tx.amount };
+        const obj = { sender: getState().tx.from, recipient: getState().tx.to, value: getState().tx.amount };
         const method = "POST";
         const body = JSON.stringify(obj);
         const headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         };
+
+        console.info(`calling ${fullurl}`);
+        console.info("with post data %O", obj);
+
         fetch(fullurl, { method, headers, body }).then((response) => response.text())
             .then((responseText) => {
                 console.info(responseText);
