@@ -8,6 +8,7 @@ function Config({ nodes, port, nodesChanged, portChanged }) {
         <>
             <h3>Config:</h3>
             <TextField label="#Nodes" value={nodes.length} type="number" onChange={(e) => nodesChanged(e.target.value)} />
+            {' '}
             <TextField label="First Port" value={port} type="number" onChange={(e) => portChanged(e.target.value)} />
         </>
     );

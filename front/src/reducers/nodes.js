@@ -13,6 +13,8 @@ const initialState = {
     ],
     port: 50082,
     clock: 0,
+    mineTarget: 1,
+    tx: { targetNode: 1, 'from': 'so', 'to': 'aki', amount: 1 }
 };
 
 
@@ -57,11 +59,11 @@ export default function nodesReducer(state = initialState, action) {
                 block.transaction.forEach(function (t) {
                     if (t.sender != null) {
                         accountId = accountNameToId(t.sender, accounts);
-                        accounts[accountId].balance -= t.value;
+                        accounts[accountId].balance -= parseInt(t.value, 10);
                     }
                     if (t.recipient != null) {
                         accountId = accountNameToId(t.recipient, accounts);
-                        accounts[accountId].balance += t.value;
+                        accounts[accountId].balance += parseInt(t.value, 10);
                     }
                 });
             });
@@ -100,6 +102,30 @@ export default function nodesReducer(state = initialState, action) {
             return {
                 ...state,
                 clock: action.payload.clock
+            }
+        case 'MINETARGET_CHANGED':
+            return {
+                ...state,
+                mineTarget: action.payload.mineTarget
+            }
+        case 'TX_CHANGED':
+            let tx = {};
+            Object.assign(tx, state.tx);
+            if (action.payload.tx.targetNode != null) (
+                tx.targetNode = action.payload.tx.targetNode
+            )
+            if (action.payload.tx.from != null) (
+                tx.from = action.payload.tx.from
+            )
+            if (action.payload.tx.to != null) (
+                tx.to = action.payload.tx.to
+            )
+            if (action.payload.tx.amount != null) (
+                tx.amount = action.payload.tx.amount
+            )
+            return {
+                ...state,
+                tx: tx
             }
         default:
             return state;

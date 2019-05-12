@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { List, ListItemText } from '@material-ui/core';
 import Node from './Node';
 
 function Status({ clock, nodes, port }) {

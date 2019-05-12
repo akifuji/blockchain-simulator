@@ -33,13 +33,13 @@ The following modules are used in the tests.
     * Get Status: done
     * Clock:
       * Reset/Increment/Decrement clock: done
-    * Accounts: *TODO*
-    * Mine : *TODO*
-    * Add Transaction: *TODO*
+    * Accounts: done
+    * Mine : done
+    * Add Transaction: done
   * Status
     * Node status (idle/broadcasting block...): done
-    * Node status (internal blockchain and transaction pool): *TODO*
-    * Animation: done
+    * Node status (internal blockchain and transaction pool): done
+    * Animation: done, but need to move node icons (*TODO*)
   * GUI
     * First version: done with simple material-ui
     * Second version: fancier ui not implemented yet

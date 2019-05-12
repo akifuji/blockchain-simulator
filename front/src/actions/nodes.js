@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-unfetch'
+import { format } from 'path';
 
 export const nodesChanged = (numNodes) => ({
     type: 'NUM_NODES_CHANGED',
@@ -172,5 +173,79 @@ export function addClockAsync(diff) {
 export function setClockAsync(clk) {
     return (dispatch, getState) => {
         setClock(getState(), dispatch, clk);
+    };
+}
+
+export const mineTargetChanged = (mineTarget) => ({
+    type: 'MINETARGET_CHANGED',
+    payload: {
+        mineTarget: parseInt(mineTarget, 10)
+    }
+});
+
+export const txTargetChanged = (target) => ({
+    type: 'TX_CHANGED',
+    payload: {
+        tx: { targetNode: parseInt(target, 10) }
+    }
+});
+
+export const txSenderChanged = (from) => ({
+    type: 'TX_CHANGED',
+    payload: {
+        tx: { from: from }
+    }
+});
+
+export const txRecipientChanged = (to) => ({
+    type: 'TX_CHANGED',
+    payload: {
+        tx: { to: to }
+    }
+});
+
+export const txAmountChanged = (amount) => ({
+    type: 'TX_CHANGED',
+    payload: {
+        tx: { amount: amount }
+    }
+});
+
+export function mine() {
+    return (dispatch, getState) => {
+        let targetNode = getState().mineTarget - 1;
+        let port = getState().port;
+
+        let fullurl = `http://localhost:${port + targetNode}/mine`;
+        console.info(`calling ${fullurl}`);
+
+        fetch(fullurl).then((response) => response.text())
+            .then((responseText) => {
+                console.info(responseText);
+                // mine() doesn't dispatch -> fire & forget
+            });
+    };
+}
+
+export function addTx() {
+    return (dispatch, getState) => {
+        let targetNode = getState().tx.targetNode - 1;
+        let port = getState().port;
+
+        let fullurl = `http://localhost:${port + targetNode}/tx/add`;
+        console.info(`calling ${fullurl}`);
+
+        const obj = { sender: getState().tx.format, recipient: getState().tx.to, value: getState().tx.amount };
+        const method = "POST";
+        const body = JSON.stringify(obj);
+        const headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        };
+        fetch(fullurl, { method, headers, body }).then((response) => response.text())
+            .then((responseText) => {
+                console.info(responseText);
+                // addTx() doesn't dispatch -> fire & forget
+            });
     };
 }
