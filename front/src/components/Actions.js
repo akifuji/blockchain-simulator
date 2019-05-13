@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Button, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { startAsync, getNodeStatusAsync, setClockAsync, addClockAsync, mineTargetChanged, txTargetChanged, txSenderChanged, txRecipientChanged, txAmountChanged, mine, addTx } from '../actions/nodes';
+import { startAsync, resetAsync, getNodeStatusAsync, setClockAsync, addClockAsync, mineTargetChanged, txTargetChanged, txSenderChanged, txRecipientChanged, txAmountChanged, mine, addTx } from '../actions/nodes';
 
 const styles = theme => ({
     button: {
@@ -20,11 +20,11 @@ function Actions({ nodes, port, clock, mineTarget, tx, start, getNodeStatus, set
             <h3>Actions:</h3>
             <Button variant="contained" color="primary" onClick={() => start()}>Start</Button>
             {' '}
-            {/* <Button variant="contained" color="default" onClick={() => getNodeStatus()}>Get Status</Button>
-            {' '} */}
+            <Button variant="contained" color="default" onClick={() => getNodeStatus()}>Get Status</Button>
+            {' '}
             <Button variant="contained" color="default" onClick={() => addClock(1)} > Clock++</Button>
             {' '}
-            <Button variant="contained" color="default" onClick={() => setClock(0)}>Reset Clock</Button>
+            <Button variant="contained" color="default" onClick={() => setClock(0)}>Reset</Button>
             <br />
             <br />
             <Button variant="contained" color="primary" onClick={() => mine()}>Mine</Button>
@@ -64,7 +64,11 @@ function mapDispatchToProps(dispatch) {
             dispatch(getNodeStatusAsync());
         },
         setClock(clock) {
-            dispatch(setClockAsync(clock));
+            if (clock === 0) {
+                dispatch(resetAsync());
+            }else {
+                dispatch(setClockAsync(clock));
+            }
         },
         addClock(diff) {
             dispatch(addClockAsync(diff));

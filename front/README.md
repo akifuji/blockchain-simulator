@@ -39,7 +39,7 @@ The following modules are used in the tests.
   * Status
     * Node status (idle/broadcasting block...): done
     * Node status (internal blockchain and transaction pool): done
-    * Animation: done, but need to move node icons (*TODO*)
+    * Animation: done
   * GUI
     * First version: done with simple material-ui
     * Second version: fancier ui not implemented yet

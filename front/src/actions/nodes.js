@@ -44,18 +44,17 @@ const updateTxPool = (nodeIndex, responseJson) => ({
         alltransactions: responseJson
     }
 })
-function sendStartMessage(state, dispatch) {
+function sendMessage(state, dispatch, message) {
     let p = 0;
-
     state.nodes.forEach(node => {
-        let fullurl = `http://localhost:${state.port + p}/start`;
+        let fullurl = `http://localhost:${state.port + p}/${message}`;
         console.info(`calling ${fullurl}`);
-        sendStartMessagePerNode(state, dispatch, fullurl, p);
+        sendMessagePerNode(state, dispatch, fullurl, p);
         p++;
     });
 }
 
-function sendStartMessagePerNode(state, dispatch, fullurl, nodeIndex) {
+function sendMessagePerNode(state, dispatch, fullurl, nodeIndex) {
     fetch(fullurl).then(response => response.text())
         .then((responseText) => {
             console.info('nodeIndex: %d, response: %s', nodeIndex, responseText);
@@ -76,10 +75,15 @@ function sendStartMessagePerNode(state, dispatch, fullurl, nodeIndex) {
 
 export function startAsync() {
     return (dispatch, getState) => {
-        sendStartMessage(getState(), dispatch);
+        sendMessage(getState(), dispatch, "start");
     };
 }
 
+export function resetAsync() {
+    return (dispatch, getState) => {
+        sendMessage(getState(), dispatch, "reset");
+    };
+}
 
 const getNodeStatus = (nodeIndex, status) => ({
     type: 'GET_NODE_STATUS',
