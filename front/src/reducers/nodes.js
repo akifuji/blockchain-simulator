@@ -18,8 +18,8 @@ const initialState = {
     details: {
         'id': -1,
         'name': '',
-        'blocks': '',
-        'transactions': '',
+        'blocks': [],
+        'transactions': [],
     }
 };
 
@@ -52,8 +52,8 @@ export default function nodesReducer(state = initialState, action) {
             details = {
                 id: action.payload.id,
                 name: action.payload.name,
-                blocks: JSON.stringify(action.payload.blocks),
-                transactions: JSON.stringify(action.payload.transactions)
+                blocks: action.payload.blocks,
+                transactions: action.payload.transactions
             }
             return {
                 ...state,
