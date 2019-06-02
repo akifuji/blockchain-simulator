@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Node from './Node';
 
-function Status({ clock, nodes, port }) {
+function Status({ clock, nodes }) {
     return (
         <>
             <h3>Status:</h3>
@@ -10,7 +10,7 @@ function Status({ clock, nodes, port }) {
             {
                 nodes.map(function (node, i) {
                     return (
-                        <Node key={i} name={`${node.name}`} status={`${node.status}`} blocks={`${node.blocks}`} transactions={`${node.transactions}`} />
+                        <Node key={i} id={`${node.id}`} />
                     );
                 })
             }
@@ -18,10 +18,9 @@ function Status({ clock, nodes, port }) {
     );
 }
 
-function mapStateToProps({ nodes, port, clock }) {
+function mapStateToProps({ nodes, clock }) {
     return {
         nodes,
-        port,
         clock,
     };
 }

@@ -2,9 +2,9 @@ import { statusIdToString, accountNameToId } from "../global.js";
 
 const initialState = {
     nodes: [
-        { 'name': 'node1', 'status': 'idle', 'blocks': 0, 'transactions': 0 },
-        { 'name': 'node2', 'status': 'idle', 'blocks': 0, 'transactions': 0 },
-        { 'name': 'node3', 'status': 'idle', 'blocks': 0, 'transactions': 0 },
+        { 'id': 0, 'name': 'node1', 'status': 'idle', 'blocks': [], 'transactions': [] },
+        { 'id': 1, 'name': 'node2', 'status': 'idle', 'blocks': [], 'transactions': [] },
+        { 'id': 2, 'name': 'node3', 'status': 'idle', 'blocks': [], 'transactions': [] },
     ],
     accounts: [
         { 'name': 'aki', 'balance': 0 },
@@ -29,7 +29,7 @@ export default function nodesReducer(state = initialState, action) {
         case 'NUM_NODES_CHANGED':
             nodes = [];
             for (let i = 0; i < action.payload.numNodes; i++) {
-                nodes.push({ 'name': `node${i + 1}`, 'status': 'idle' });
+                nodes.push({ 'id': i, 'name': `node${i + 1}`, 'status': 'idle' });
             }
 
             return {
@@ -47,7 +47,7 @@ export default function nodesReducer(state = initialState, action) {
                 clock: 0
             }
         case 'ALL_BLOCKS_FOR_BALANCE':
-            console.info('allblocks: %O', action.payload.allblocks);
+            console.info('ALL_BLOCKS_FOR_BALANCE allblocks: %O', action.payload.allblocks);
             // reset all balances to 0
             accounts = Array.from(state.accounts);
             accounts.forEach(function (item) {
@@ -68,7 +68,7 @@ export default function nodesReducer(state = initialState, action) {
                 });
             });
 
-            console.warn(accounts);
+            console.info('accounts: %O', accounts);
             return {
                 ...state,
                 accounts: accounts
@@ -76,7 +76,7 @@ export default function nodesReducer(state = initialState, action) {
         case 'ALL_BLOCKS':
             // Update blocks per node
             nodes = Array.from(state.nodes);
-            nodes[action.payload.nodeIndex].blocks = action.payload.allblocks.length;
+            nodes[action.payload.nodeIndex].blocks = action.payload.allblocks;
             return {
                 ...state,
                 nodes: nodes
@@ -84,7 +84,7 @@ export default function nodesReducer(state = initialState, action) {
         case 'ALL_TRANSACTIONS':
             // Update transactions per node
             nodes = Array.from(state.nodes);
-            nodes[action.payload.nodeIndex].transactions = action.payload.alltransactions.length;
+            nodes[action.payload.nodeIndex].transactions = action.payload.alltransactions;
             return {
                 ...state,
                 nodes: nodes
