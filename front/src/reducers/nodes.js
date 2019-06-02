@@ -14,7 +14,13 @@ const initialState = {
     port: 50082,
     clock: 0,
     mineTarget: 1,
-    tx: { targetNode: 1, 'from': 'so', 'to': 'aki', amount: 1 }
+    tx: { targetNode: 1, 'from': 'so', 'to': 'aki', amount: 1 },
+    details: {
+        'id': -1,
+        'name': '',
+        'blocks': '',
+        'transactions': '',
+    }
 };
 
 
@@ -24,6 +30,7 @@ export default function nodesReducer(state = initialState, action) {
     let status;
     let accounts;
     let accountId;
+    let details;
 
     switch (action.type) {
         case 'NUM_NODES_CHANGED':
@@ -40,6 +47,17 @@ export default function nodesReducer(state = initialState, action) {
             return {
                 ...state,
                 port: action.payload.port
+            }
+        case 'DETAILS_CHANGED':
+            details = {
+                id: action.payload.id,
+                name: action.payload.name,
+                blocks: JSON.stringify(action.payload.blocks),
+                transactions: JSON.stringify(action.payload.transactions)
+            }
+            return {
+                ...state,
+                details: details
             }
         case 'START':
             return {

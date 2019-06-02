@@ -6,6 +6,7 @@ import Config from './Config';
 import Actions from './Actions';
 import Accounts from './Accounts';
 import Status from './Status';
+import Details from './Details';
 
 function App({ nodes, port, clock }) {
   return (
@@ -26,6 +27,9 @@ function App({ nodes, port, clock }) {
       </div>
       <div className="Section" >
         <Status />
+      </div>
+      <div className="Section" >
+        <Details />
       </div>
     </div >
   );

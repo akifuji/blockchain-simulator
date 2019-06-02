@@ -14,6 +14,16 @@ export const portChanged = (port) => ({
     }
 })
 
+export const detailsChanged = (id, name, blocks, transactions) => ({
+    type: 'DETAILS_CHANGED',
+    payload: {
+        id: id,
+        name: name,
+        blocks: blocks,
+        transactions: transactions
+    }
+})
+
 const start = (nodeIndex, responseText) => ({
     type: 'START',
     payload: {
