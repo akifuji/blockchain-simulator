@@ -5,7 +5,7 @@ from block import Block
 
 GENESIS_BLOCK = Block(0, [{"sender": None, "recipient": "aki", "value": 2},
                           {"sender": None, "recipient": "so", "value": 7},
-                          {"sender": None, "recipient": "satoshi", "value": 5}], None, 0, 9999999)
+                          {"sender": None, "recipient": "satoshi", "value": 5}], None, 0, 1231006505)
 
 
 class BlockchainManager:
